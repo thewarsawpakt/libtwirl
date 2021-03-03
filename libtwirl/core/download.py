@@ -30,9 +30,15 @@ def pkg(name, version=None, acc_deps=set()):
 
     print(f"{package.name}: {package.depends}")
     for dep in package.depends:
+        if dep in acc_deps:
+            continue
+        else:
+            acc_deps.add(dep)
         print(dep)
+        if ".so" in dep:
+            dep = dep.replace(".so", "")
         if ">=" in dep:
-            pkg(dep.split(">=")[0], dep.split(">=")[1], acc_deps=set())
+            pkg(dep.split(">=")[0], dep.split(">=")[1], acc_deps=acc_deps)
         elif "=" in dep:
             pkg(dep.split("=")[0], dep.split("=")[1])
         elif ".so" in dep:

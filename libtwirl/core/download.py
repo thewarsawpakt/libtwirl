@@ -32,7 +32,7 @@ def pkg(name, version=None, acc_deps=set()):
     for dep in package.depends:
         print(dep)
         if ">=" in dep:
-            pkg(dep.split(">=")[0], dep.split(">=")[1])
+            pkg(dep.split(">=")[0], dep.split(">=")[1], acc_deps=set())
         elif "=" in dep:
             pkg(dep.split("=")[0], dep.split("=")[1])
         elif ".so" in dep:

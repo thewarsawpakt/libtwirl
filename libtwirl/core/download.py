@@ -1,7 +1,7 @@
-from twirl.errors import PackageNotFoundError
-from twirl.core.debug import logging
-from twirl import search_repos
-from twirl import localdb
+from libtwirl.errors import PackageNotFoundError
+from libtwirl.core.debug import logging
+from libtwirl import search_repos
+from libtwirl import localdb
 
 def search_for_pkg(name):
     potential_packages = localdb.search(name)

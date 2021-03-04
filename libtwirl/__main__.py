@@ -1,5 +1,5 @@
-from twirl.errors import IncorrectArgumentFormatError
-from twirl.core.download import pkg
+from libtwirl.errors import IncorrectArgumentFormatError
+from libtwirl.core.download import pkg
 from sys import argv
 
 args = argv[1:]

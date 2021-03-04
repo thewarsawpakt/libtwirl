@@ -1,5 +1,5 @@
 from libtwirl.errors import IncorrectArgumentFormatError
-from libtwirl.core.download import pkg
+from libtwirl.core.install import pkg_install
 from sys import argv
 
 args = argv[1:]
@@ -21,4 +21,4 @@ try:
         raise IncorrectArgumentFormatError(f"Incorrect amount of operations provided. (Expected 2, got {count})")
 except Exception as E:
     raise SystemExit()
-pkg(argv[2])
+pkg_install(argv[2])

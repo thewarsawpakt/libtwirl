@@ -2,13 +2,16 @@ import pyalpm
 import libtwirl.core.transaction as transaction
 from libtwirl.errors import PackageNotFoundError
 from libtwirl.core.database import search_repos
-from libtwirl.core.database import fetch_local
-from libtwirl.core.database import fetch_handle
+from libtwirl import handle
 
-def pkg_remove(pkgs, options = None): # Function to uninstall packages
+
+def pkg_remove(pkgs, options = None):
+	"""
+	Function to uninstall packages
+	"""
+
 	# Fetch important objects
-	localdb = fetch_local()
-	handle = fetch_handle()
+	localdb = handle.get_localdb()
 	targets = []
 	for name in pkgs:
 		# Find the package in the localdb
@@ -27,6 +30,3 @@ def pkg_remove(pkgs, options = None): # Function to uninstall packages
 	t = transaction.transaction_init()
 	[t.remove_pkg(pkg) for pkg in targets]
 	transaction.transaction_commit(t)
-	# Update the local database
-	fetch_local()
-

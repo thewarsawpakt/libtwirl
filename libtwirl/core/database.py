@@ -1,15 +1,12 @@
 import pyalpm
+from libtwirl import handle
 
-def fetch_handle(): # Function to fetch the handle (to fix import errors)
-	from libtwirl import handle	
-	return handle
 
-def fetch_local(): # Function to refetch local database (run when changing pkgs)
-	from libtwirl import handle	
-	return handle.get_localdb()
+def register_repos(repolist, architecture = "x86_64", siglvl = pyalpm.SIG_DATABASE_OPTIONAL):
+	"""
+	Function to register synced repositories
+	"""
 
-def register_repos(repolist, architecture = "x86_64", siglvl = pyalpm.SIG_DATABASE_OPTIONAL): # Function to register synced repositories
-	from libtwirl import handle	
 	for reponame in repolist.keys():
 		# Register repositories into the handle
 		# TODO (POSSIBLY): Add a way to specify the signature level of repositories (independently)
@@ -25,11 +22,16 @@ def register_repos(repolist, architecture = "x86_64", siglvl = pyalpm.SIG_DATABA
 		# Add server list to the repository
 		repo.servers = repo_servers
 
-def search_repos(pkgname, find_provides = True): # Function to search the synced repositories
-	from libtwirl import handle	
+
+def search_repos(pkgname, find_provides = True):
+	"""
+	Function to search the synced repositories
+	"""
+
 	syncdbs = handle.get_syncdbs()
-	packages = []
+	packages = []	# List of packages that have the name or provide the requested package
 	# Iterate through list of synced databases for exact packages
+	# This gets a package from every repository, if it exists
 	for repo in syncdbs:
 		pkg = repo.get_pkg(pkgname)
 		if not pkg is None:

@@ -1,7 +1,12 @@
 import pyalpm
 import libtwirl.core.database as database
+from libtwirl import handle
 
-def get_option_value(options, option_name, default = False): # Get the options from the dictionary
+def get_option_value(options, option_name, default = False):
+	"""
+	Get the options from the dictionary
+	"""
+
 	# This is so we can set the default values easily
 	if not options: # Return default if the options are None
 		return default
@@ -10,9 +15,11 @@ def get_option_value(options, option_name, default = False): # Get the options f
 	else:
 		return options[option_name]
 
-def transaction_init(options = None): # Start the transaction using the options
-	# Get the handle
-	handle = database.fetch_handle()
+def transaction_init(options = None):
+	"""
+	Start the transaction using the options
+	"""
+
 	# Initialise the transation and set the values
 	t = handle.init_transaction(
 		cascade=get_option_value(options, "cascade"),
@@ -28,7 +35,11 @@ def transaction_init(options = None): # Start the transaction using the options
 		allexplicit=(get_option_value(options, 'mode', None) == pyalpm.PKG_REASON_EXPLICIT))
 	return t
 
-def transaction_commit(t): # Do the transaction itself
+def transaction_commit(t):
+	"""
+	Do the transaction itself
+	"""
+
 	try:
 		# Start transaction
 		print("Starting transaction.")

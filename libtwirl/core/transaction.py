@@ -1,7 +1,5 @@
-import pyalpm
 import libtwirl.core.database as database
-from libtwirl import handle
-
+import pyalpm
 def get_option_value(options, option_name, default = False):
 	"""
 	Get the options from the dictionary
@@ -15,7 +13,7 @@ def get_option_value(options, option_name, default = False):
 	else:
 		return options[option_name]
 
-def transaction_init(options = None):
+def transaction_init(handle, options = None):
 	"""
 	Start the transaction using the options
 	"""

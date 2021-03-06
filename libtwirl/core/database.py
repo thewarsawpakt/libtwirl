@@ -1,8 +1,7 @@
 import pyalpm
-from libtwirl import handle
 
 
-def register_repos(repolist, architecture = "x86_64", siglvl = pyalpm.SIG_DATABASE_OPTIONAL):
+def register_repos(repolist, handle, architecture = "x86_64", siglvl = pyalpm.SIG_DATABASE_OPTIONAL):
 	"""
 	Function to register synced repositories
 	"""
@@ -23,7 +22,7 @@ def register_repos(repolist, architecture = "x86_64", siglvl = pyalpm.SIG_DATABA
 		repo.servers = repo_servers
 
 
-def search_repos(pkgname, find_provides = True):
+def search_repos(pkgname, handle, find_provides = True):
 	"""
 	Function to search the synced repositories
 	"""

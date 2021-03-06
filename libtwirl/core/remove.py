@@ -2,10 +2,8 @@ import pyalpm
 import libtwirl.core.transaction as transaction
 from libtwirl.errors import PackageNotFoundError
 from libtwirl.core.database import search_repos
-from libtwirl import handle
 
-
-def pkg_remove(pkgs, options = None):
+def pkg_remove(pkgs, handle, options = None):
 	"""
 	Function to uninstall packages
 	"""

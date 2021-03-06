@@ -1,11 +1,9 @@
-import pyalpm
 import libtwirl.core.transaction as transaction
 from libtwirl.errors import PackageNotFoundError
 from libtwirl.core.database import search_repos
-from libtwirl import handle
 
 
-def pkg_install(pkgs, options = None):
+def pkg_install(pkgs, handle, options = None):
 	"""
 	Function to install packages
 	"""
@@ -18,7 +16,7 @@ def pkg_install(pkgs, options = None):
 		if localdb.get_pkg(name):
 			print(f"WARNING: Package {name} is already installed.")
 		# Find package in the provided sync repos
-		package = search_repos(name)
+		package = search_repos(name, handle)
 		# Make sure the package exists before installing
 		if package is None:
 			raise PackageNotFoundError(name)
@@ -32,6 +30,6 @@ def pkg_install(pkgs, options = None):
 	[formatted_targets.append(f"{pkg.db.name}/{pkg.name}-{pkg.version}") for pkg in targets]
 	print('\n'.join(formatted_targets), "\n")
 	# Install the packages
-	t = transaction.transaction_init()
+	t = transaction.transaction_init(handle)
 	[t.add_pkg(pkg) for pkg in targets]
 	transaction.transaction_commit(t)

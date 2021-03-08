@@ -26,7 +26,8 @@ if not len(args) > 1:
 	raise IncorrectArgumentFormatError("No packages specified.")
 try:
 	handle = Handle(args[3], "/var/lib/pacman")
-except:
+except IndexError:
+        print("Defaulting to / as root.")
 	handle = Handle("/", "/var/lib/pacman")
 
 
